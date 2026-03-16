@@ -24,7 +24,11 @@ namespace EmployeeManagementAPI.Controllers
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Invalid employee creation request received for email {Email}", createDto?.Email);
-                return BadRequest(ModelState);
+                return BadRequest(new
+                {
+                    message = "Validation failed",
+                    errors = ModelState
+                });
             }
 
             _logger.LogInformation("Employee creation started for email {Email}", createDto.Email);
@@ -47,7 +51,11 @@ namespace EmployeeManagementAPI.Controllers
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Invalid employee update request received for EmployeeId {EmployeeId}", employeeId);
-                return BadRequest(ModelState);
+                return BadRequest(new
+                {
+                    message = "Validation failed",
+                    errors = ModelState
+                });
             }
 
             _logger.LogInformation("Update started for EmployeeId {EmployeeId}", employeeId);
